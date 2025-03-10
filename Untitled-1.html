@@ -5,11 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Search</title>
     <link rel="stylesheet" href="styles.css">
+    <script  src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script  src="hw2_search_dataset.js"></script>
+    <script>
+        //return 負數 a排在b前面 
+        
+        const sort_rule = function(select_sort){
+            return function(a,b){
+                if(select_sort =="title"){
+                    return a.title.localeCompare(b.title)
+                }
+                else if(select_sort =="date"){
+                    return new Date(b.created_at) - new Date(a.created_at);
+                }
+                else if(select_sort == "popularity"){
+                    return b.popularity-a.popularity;
+                }
+            };
+        };
+        
+        const app = Vue.createApp({
+            data(){
+                return {
+                    data: SEARCH_DATASET,
+                    count:10,
+                    selection: "title"
+                };
+            },
+            
+            computed:{
+                
+                sort_data(){
+                    return [...this.data].sort(sort_rule(this.selection));
+                },
+                visable_data(){
+                    return this.sort_data.slice(0,this.count);
+                }
+            },
+
+            methods:{
+                showmore(){
+                    this.count+=10;
+                }
+            }
+
+        });
+        app.mount("#app");
+
+    </script>
+
 </head>
 <body>
 
     <div class="search-container">
-        <label for="search">SD Search</label>
+        <label for="search" onclick="alert(SEARCH_DATASET[0].title)">SD Search</label>
         <input type="text" id="search" value="國立中央大學" >
         <img src="icon.jpg"  class="user-icon">
     </div>
@@ -19,14 +68,17 @@
 
         <div class="sort-container">
             <label for="sort">排序方式：</label>
-            <select id="sort">
+            <select id="sort" v-model="selection">
                 <option value="title">標題</option>
                 <option value="date">時間</option>
                 <option value="popularity">人氣</option>
             </select>
         </div>
 
-        <!-- 這裡可以放搜尋結果列表 -->
+        <div v-for="item in visable_data" :key="item.url" class="result">
+            {{count}}
+        </div>
+        
     </div>
 
 </body>

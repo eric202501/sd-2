@@ -7,8 +7,18 @@
     <!-- 載入 Vue.js -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <!-- Vue 應該在 HTML 載入後執行 -->
-    <script>
+   
+</head>
+<body>
+
+    <div id="app">
+        <h2>Vue.js 測試</h2>
+        <p>{{ message }}</p>
+        <button @click="changeMessage">點擊更改文字</button>
+    </div>
+
+     <!-- Vue 應該在 HTML 載入後執行 -->
+     <script>
         const app = Vue.createApp({
             data() {
                 return {
@@ -24,14 +34,6 @@
 
         app.mount("#app");
     </script>
-</head>
-<body>
-
-    <div id="app">
-        <h2>Vue.js 測試</h2>
-        <p>{{ message }}</p>
-        <button @click="changeMessage">點擊更改文字</button>
-    </div>
 
 
 

@@ -5,11 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Search</title>
     <link rel="stylesheet" href="styles.css">
-    <script  src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script  src="hw2_search_dataset.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <div class="search-container">
+            <label for="search" >SD Search</label>
+            <input type="text" id="search" value="國立中央大學" >
+            <img src="icon.jpg"  class="user-icon">
+        </div>
+        <hr>
+        <div class="search-results">
+            <p>共找到 <strong>{{ data.length }}</strong> 筆項目。</p>
+
+            <div class="sort-container">
+                <label for="sort">排序方式：</label>
+                <select id="sort" v-model="selection">
+                    <option value="title">標題</option>
+                    <option value="date">時間</option>
+                    <option value="popularity">人氣</option>
+                </select>
+            </div>
+
+            <div v-for="item in visable_data" class="result-card">
+                <small>{{item.url}}</small>
+                <h3><a :href="item.url" target="_blank">{{item.title}}</a></h3>
+                <p>{{item.text}}</p>
+                <small>建立時間：{{item.created_at}}</small>
+                <small>人氣：{{item.popularity}}</small>
+            </div>
+        </div>
+        <button v-if="count < sort_data.length" @click="showmore">
+            顯示更多
+        </button>
+    </div>
+
     <script>
         //return 負數 a排在b前面 
-        
         const sort_rule = function(select_sort){
             return function(a,b){
                 if(select_sort =="title"){
@@ -25,10 +59,10 @@
         };
         
         const app = Vue.createApp({
-            data(){
+            data() {
                 return {
                     data: SEARCH_DATASET,
-                    count:10,
+                    count: 10,
                     selection: "title"
                 };
             },
@@ -54,32 +88,6 @@
 
     </script>
 
-</head>
-<body>
-
-    <div class="search-container">
-        <label for="search" onclick="alert(SEARCH_DATASET[0].title)">SD Search</label>
-        <input type="text" id="search" value="國立中央大學" >
-        <img src="icon.jpg"  class="user-icon">
-    </div>
-    <hr>
-    <div class="search-results">
-        <p>共找到 <strong>71</strong> 筆項目。</p>
-
-        <div class="sort-container">
-            <label for="sort">排序方式：</label>
-            <select id="sort" v-model="selection">
-                <option value="title">標題</option>
-                <option value="date">時間</option>
-                <option value="popularity">人氣</option>
-            </select>
-        </div>
-
-        <div v-for="item in visable_data" :key="item.url" class="result">
-            {{count}}
-        </div>
-        
-    </div>
 
 </body>
 </html>

@@ -47,7 +47,7 @@ body {
 
 /* 搜尋結果區域 */
 .search-results {
-    max-width: 600px;
+   margin: 20px ;
 }
 
 /* 排序選單 */
@@ -67,10 +67,86 @@ select {
     margin-bottom: 10px;
     white-space: normal;
     overflow-wrap: break-word;
+    background-color: #f0f0f0;
+    
 }
 
 .result-card small{
-    
+    font-size: smaller;
     margin: 10px;
     display: block;
 }
+
+.result-card h2{
+    margin: 10px;
+}
+
+.result-card p{
+    margin: 10px;
+    font-size: 20px;
+}
+
+.result-card a{
+    text-decoration: none; 
+    color: rgb(68, 68, 233);           
+}
+
+.result-card a:hover{
+    text-decoration: underline; 
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    margin: 10px;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #ccc;
+}
+
+
+@media screen and (max-width: 600px) {
+    /* 讓搜尋欄可換行 */
+    .search-container {
+      flex-wrap: wrap; 
+      text-align: center;
+      justify-content: center; 
+    }
+
+    .search-container label {
+      width: 100%;
+      font-size: larger;
+      font-weight: bold;
+    }
+
+    .search-container input {
+      
+      margin-left: 0;
+      margin-top: 10px;
+      width: 100%;
+      text-align: center;
+      
+    }
+  
+  
+    .user-icon {
+      display: none;
+    }
+  
+    .result-card {
+      margin: 10px 0; 
+      padding: 10px;
+    }
+  
+    button {
+      width: 100%;
+      font-size: 16px;
+    }
+  }

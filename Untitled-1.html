@@ -31,7 +31,7 @@
 
             <div v-for="item in visable_data" class="result-card">
                 <small>{{item.url}}</small>
-                <h3><a :href="item.url" target="_blank">{{item.title}}</a></h3>
+                <h2><a :href="item.url" target="_blank">{{ item.title ? item.title : "Title Lose" }}</a></h2>
                 <p>{{item.text}}</p>
                 <small>建立時間：{{item.created_at}}</small>
                 <small>人氣：{{item.popularity}}</small>
@@ -68,7 +68,6 @@
             },
             
             computed:{
-                
                 sort_data(){
                     return [...this.data].sort(sort_rule(this.selection));
                 },
@@ -80,6 +79,12 @@
             methods:{
                 showmore(){
                     this.count+=10;
+                }
+            },
+
+            watch:{
+                selection(){
+                    this.count = 10;
                 }
             }
 
